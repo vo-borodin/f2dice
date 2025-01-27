@@ -1,0 +1,103 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "org.jetbrains.kotlin.kapt"
+    id "kotlin-kapt"
+    id "com.google.dagger.hilt.android"
+}
+
+android {
+    namespace 'com.voborodin.f2dice'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.voborodin.f2dice"
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+dependencies {
+
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.fragment
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.constraintlayout.constraintlayout4
+    implementation libs.core.ktx
+
+    implementation libs.androidx.preference.ktx
+    implementation libs.androidx.preference
+
+    implementation libs.androidx.legacy.legacy.support.v4
+
+    implementation libs.androidx.navigation.navigation.fragment.ktx12
+    implementation libs.androidx.navigation.navigation.ui.ktx11
+
+    implementation libs.androidx.core.core.splashscreen6
+    implementation libs.androidx.datastore.datastore.preferences
+    implementation libs.androidx.lifecycle.lifecycle.viewmodel.ktx4
+    implementation libs.androidx.lifecycle.lifecycle.livedata.ktx4
+    implementation(libs.androidx.datastore.datastore.preferences.core)
+
+    //lottie
+    implementation libs.com.airbnb.android.lottie7
+
+    //hilt
+    implementation libs.com.google.dagger.hilt.android7
+    implementation libs.androidx.fragment.ktx
+    kapt libs.com.google.dagger.hilt.compiler7
+
+    //timber
+    implementation libs.com.jakewharton.timber.timber
+
+    // Local Unit Tests
+    implementation libs.androidx.test.core7
+    implementation libs.androidx.test.ext.junit.ktx8
+
+    testImplementation libs.junit
+    testImplementation libs.androidx.arch.core.core.testing3
+    testImplementation libs.org.robolectric.robolectric6
+    testImplementation libs.org.jetbrains.kotlinx.kotlinx.coroutines.test13
+    testImplementation libs.com.google.truth.truth18
+
+    // Instrumented Unit Tests
+    androidTestImplementation libs.junit
+    androidTestImplementation libs.androidx.arch.core.core.testing4
+
+    androidTestImplementation libs.org.jetbrains.kotlinx.kotlinx.coroutines.test13
+    androidTestImplementation libs.com.google.truth.truth18
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+    androidTestImplementation libs.mockito.mockito.core
+    androidTestImplementation libs.google.hilt.android.testing
+    kaptAndroidTest libs.google.hilt.android.compiler
+
+    debugImplementation libs.androidx.fragment.testing
+}

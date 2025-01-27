@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Dice Board">
+
+        <ListPreference
+            android:defaultValue="System Default"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:key="THEME_KEY"
+            android:title="@string/theme"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:entries="@array/board_entries"
+            android:entryValues="@array/board_values"
+            android:key="GAME_MODE_KEY"
+            android:title="@string/nos_of_dice"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

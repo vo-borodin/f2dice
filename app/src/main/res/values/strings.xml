@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">DICE</string>
+    <string name="dice">DICE</string>
+    <string name="a_minimalistic_dice_roll_app">A minimalistic dice roll app</string>
+    <string name="get_started">get started</string>
+    <string name="dice1" translatable="false">Dice1</string>
+    <string name="dice2" translatable="false">Dice2</string>
+    <string name="roll">Roll</string>
+    <string name="about">About</string>
+    <string name="rate_us">Rate us</string>
+    <string name="share_bug_report">Share Bug Report</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="a_simple_intuitive_minimalistic_and_ad_free_dice_roll_application" translatable="false">DICE is a minimalistic, intuitive and an ad-free dice roll application with which you can play your favorite board games.</string>
+    <string name="banner" translatable="false">banner</string>
+    <string name="choose_your_dice_s_board" translatable="false">Choose your dice(s) board :</string>
+    <string name="one">One</string>
+    <string name="diceone_imageview" translatable="false">diceOne_imageView</string>
+    <string name="suitable_for_single_player_board_games" translatable="false">Suitable for single-player board games</string>
+    <string name="two">Two</string>
+    <string name="suitable_for_multi_player_board_games" translatable="false">Suitable for multi-player board games</string>
+    <string name="three" translatable="false">Three</string>
+    <string name="four" translatable="false">Four</string>
+    <string name="play">Play</string>
+    <string name="dicetwo_imageview" translatable="false">diceTwo_imageView</string>
+    <string name="dicethree_imageview" translatable="false">diceThree_imageView</string>
+    <string name="dicefour_imageview" translatable="false">diceFour_imageView</string>
+    <string name="dice3" translatable="false">dice3</string>
+    <string name="dice4" translatable="false">dice4</string>
+    <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
+    <string name="nos_of_dice" translatable="false">No of dice(s) on the board</string>
+</resources>

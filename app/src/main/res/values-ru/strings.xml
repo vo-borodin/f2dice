@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Игральные кубики</string>
+    <string name="dice">ИГРАЛЬНЫЕ КУБИКИ</string>
+    <string name="a_minimalistic_dice_roll_app">Минималистичное приложение, изображающее игральные кубики</string>
+    <string name="get_started">начать</string>
+    <string name="roll">Бросить</string>
+    <string name="about">О программе</string>
+    <string name="rate_us">Оценить</string>
+    <string name="share_bug_report">Сообщить об ошибке</string>
+    <string name="one">Один</string>
+    <string name="two">Два</string>
+    <string name="settings">Настройки</string>
+    <string name="theme">Тема</string>
+    <string name="play">Играть</string>
+</resources>
