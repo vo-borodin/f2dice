@@ -38,15 +38,19 @@ class FDiceViewModel @Inject constructor(application: Application) : AndroidView
     val dice2: LiveData<Int>
         get() = _dice2
 
+    private val _forgery = MutableLiveData<Int?>()
+    val forgery: LiveData<Int?>
+        get() = _forgery
+
     private val _result = MutableLiveData<String>()
     val result: LiveData<String>
         get() = _result
-
 
     init {
         _eventGameStart.value = false
         _dice1.value = R.drawable.empty_dice
         _dice2.value = R.drawable.empty_dice
+        _forgery.value = null
         _result.value = ""
     }
 
@@ -84,8 +88,7 @@ class FDiceViewModel @Inject constructor(application: Application) : AndroidView
                 // New vibrate method for API Level 26 or higher
                 vibrator.vibrate(
                     VibrationEffect.createOneShot(
-                        100,
-                        VibrationEffect.DEFAULT_AMPLITUDE
+                        100, VibrationEffect.DEFAULT_AMPLITUDE
                     )
                 )
             } else {
@@ -95,12 +98,34 @@ class FDiceViewModel @Inject constructor(application: Application) : AndroidView
         }
     }
 
-    fun rollBoardTwo() {
+    private fun randomForgedRolling(predict: Int): Pair<Int, Int> {
+        val pairs = (1..predict).mapNotNull {
+            if ((predict - it) <= 6 && (predict - it) >= 1) {
+                Pair(it, predict - it)
+            } else {
+                null
+            }
+        }
+        return pairs[Random.nextInt(0, pairs.count() - 1)]
+    }
+
+    fun rollBoard() {
+        val randomIntOne: Int
+        val randomIntTwo: Int
         provideHapticFeedback()
-        val randomIntOne: Int = Random.nextInt(6) + 1
-        val randomIntTwo: Int = Random.nextInt(6) + 1
+
+        if (forgery.value == null || forgery.value!! < 2 || forgery.value!! > 12) {
+            randomIntOne = Random.nextInt(6) + 1
+            randomIntTwo = Random.nextInt(6) + 1
+        } else {
+            val pair = randomForgedRolling(forgery.value!!)
+            randomIntOne = pair.first
+            randomIntTwo = pair.second
+        }
+
         _dice1.value = setImage(randomIntOne)
         _dice2.value = setImage(randomIntTwo)
+        _forgery.value = null
         _result.value = (randomIntOne + randomIntTwo).toString()
     }
 }

@@ -7,10 +7,14 @@
     <string name="roll">Бросить</string>
     <string name="about">О программе</string>
     <string name="rate_us">Оценить</string>
-    <string name="share_bug_report">Сообщить об ошибке</string>
+    <string name="share_bug_report">Опубликовать отчет об ошибках</string>
     <string name="one">Один</string>
     <string name="two">Два</string>
     <string name="settings">Настройки</string>
     <string name="theme">Тема</string>
     <string name="play">Играть</string>
+    <string name="developer">Разработчик</string>
+    <string name="app">Приложение</string>
+    <string name="report_bug">Сообщить об ошибке</string>
+    <string name="report_bugs_or_request_few_features">Сообщить об ошибке или предложить улучшение</string>
 </resources>

@@ -42,7 +42,7 @@ class BoardTwoFragment : Fragment() {
             binding.confetti.visibility = View.VISIBLE
             binding.rollButton.isEnabled=false
             binding.rollButton.isClickable=false
-            viewModel.rollBoardTwo()
+            viewModel.rollBoard()
             binding.rollButton.postDelayed(Runnable {
                 binding.rollButton.isEnabled=true
                 binding.rollButton.isClickable=true
