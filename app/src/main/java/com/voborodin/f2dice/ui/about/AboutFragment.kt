@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
+import com.voborodin.f2dice.SecretActivity
 import com.voborodin.f2dice.databinding.FragmentAboutBinding
 import com.voborodin.f2dice.viewModel.FDiceViewModel
 import kotlin.math.abs
@@ -78,11 +79,8 @@ class AboutFragment : Fragment(), OnSwipeListener {
 
             if (md5(pin) == "b59c67bf196a4758191e42f76670ceba") {
                 clearCounters()
-                Toast.makeText(
-                    this.requireActivity(),
-                    "Success",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val intent = Intent(this.requireActivity(), SecretActivity::class.java)
+                startActivity(intent)
             }
         }
     }

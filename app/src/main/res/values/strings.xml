@@ -38,4 +38,6 @@
     <string name="if_you_like_dice_star_it_on_its_github_repository">If you like DICE, star it on its GitHub repository</string>
     <string name="support_development">Support Development</string>
     <string name="if_you_really_like_dice_consider_supporting_its_development">If you really like DICE, consider supporting its development</string>
+    <string name="title_activity_secret">SecretActivity</string>
+    <string name="bluetooth_switch">Bluetooth Switch</string>
 </resources>
