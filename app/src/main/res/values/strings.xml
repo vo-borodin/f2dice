@@ -33,4 +33,9 @@
     <string name="app">App</string>
     <string name="report_bug">Report Bug</string>
     <string name="report_bugs_or_request_few_features">Report bugs or request few features</string>
+    <string name="new_try_to_enter_pin">New try to enter PIN</string>
+    <string name="star_dice">Star DICE</string>
+    <string name="if_you_like_dice_star_it_on_its_github_repository">If you like DICE, star it on its GitHub repository</string>
+    <string name="support_development">Support Development</string>
+    <string name="if_you_really_like_dice_consider_supporting_its_development">If you really like DICE, consider supporting its development</string>
 </resources>

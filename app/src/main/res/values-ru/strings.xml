@@ -17,4 +17,9 @@
     <string name="app">Приложение</string>
     <string name="report_bug">Сообщить об ошибке</string>
     <string name="report_bugs_or_request_few_features">Сообщить об ошибке или предложить улучшение</string>
+    <string name="new_try_to_enter_pin">Новая попытка ввода ПИН-кода</string>
+    <string name="star_dice">Оценить \"Игральные кубики\"</string>
+    <string name="if_you_like_dice_star_it_on_its_github_repository">Если вам нравятся \"Игральные кубики\", поставьте им звезды на репозитории GitHub</string>
+    <string name="support_development">Поддержать разработку</string>
+    <string name="if_you_really_like_dice_consider_supporting_its_development">Если вам особенно нравятся \"Игральные кубики\", поддержите разработчика</string>
 </resources>
