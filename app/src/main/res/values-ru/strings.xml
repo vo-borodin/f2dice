@@ -23,4 +23,17 @@
     <string name="support_development">Поддержать разработку</string>
     <string name="if_you_really_like_dice_consider_supporting_its_development">Если вам особенно нравятся \"Игральные кубики\", поддержите разработчика</string>
     <string name="bluetooth_switch">Включить Bluetooth</string>
+    <string name="change_pin_button_caption">Сменить ПИН</string>
+    <string name="role_radio_buttons_caption">Назначить роль:</string>
+    <string name="master_radio_button_caption">Ведущий</string>
+    <string name="slave_radio_button_caption">Ведомый</string>
+    <string name="connected_device_hint">Имя связанного устройства</string>
+    <string name="check_connection_button_caption">Проверить соединение</string>
+    <string name="launch_slave_button_caption">На игровое поле</string>
+    <string name="launch_master_button_caption">В трехкнопочный режим</string>
+    <string name="set_role_of_device">Задайте роль</string>
+    <string name="turn_on_bluetooth" >Выключить Bluetooth</string>
+    <string name="turn_off_bluetooth" >Включить Bluetooth</string>
+    <string name="start_server">Включить прием и передачу сообщений</string>
+    <string name="stop_server">Выключить прием и передачу сообщений</string>
 </resources>

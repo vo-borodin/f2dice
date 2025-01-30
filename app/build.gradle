@@ -61,6 +61,7 @@ dependencies {
 
     implementation libs.androidx.core.core.splashscreen6
     implementation libs.androidx.datastore.datastore.preferences
+    implementation libs.androidx.hilt.navigation.compose
     implementation libs.androidx.lifecycle.lifecycle.viewmodel.ktx4
     implementation libs.androidx.lifecycle.lifecycle.livedata.ktx4
     implementation(libs.androidx.datastore.datastore.preferences.core)

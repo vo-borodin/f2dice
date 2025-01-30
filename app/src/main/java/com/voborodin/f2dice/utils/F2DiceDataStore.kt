@@ -14,18 +14,18 @@ object PREFS {
     val GAME_MODE = stringPreferencesKey("GAME_MODE")
 }
 
-class DiceDataStore private constructor(context: Context) {
+class F2DiceDataStore private constructor(context: Context) {
 
     companion object {
 
         @Volatile
-        private var INSTANCE: DiceDataStore? = null
+        private var INSTANCE: F2DiceDataStore? = null
 
-        fun getInstance(context: Context): DiceDataStore {
+        fun getInstance(context: Context): F2DiceDataStore {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = DiceDataStore(context)
+                    instance = F2DiceDataStore(context)
                     INSTANCE = instance
                 }
                 return instance

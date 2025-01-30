@@ -14,13 +14,13 @@ import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentBoardTwoBinding
-import com.voborodin.f2dice.viewModel.FDiceViewModel
+import com.voborodin.f2dice.viewModel.F2DiceViewModel
 
 @AndroidEntryPoint
 class BoardTwoFragment : Fragment() {
 
     private lateinit var binding: FragmentBoardTwoBinding
-    private val viewModel: FDiceViewModel by activityViewModels()
+    private val viewModel: F2DiceViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -30,6 +30,7 @@ class BoardTwoFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         setHasOptionsMenu(true)
+
         viewModel.resetData()
         viewModel.result.observe(viewLifecycleOwner, Observer { value ->
             if (value != "") {

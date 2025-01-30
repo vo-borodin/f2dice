@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.voborodin.f2dice.viewModel.FDiceViewModel" />
+            type="com.voborodin.f2dice.viewModel.F2DiceViewModel" />
     </data>
 
     <ScrollView

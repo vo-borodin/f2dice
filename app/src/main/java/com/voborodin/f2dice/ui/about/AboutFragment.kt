@@ -14,11 +14,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
-import com.voborodin.f2dice.SecretActivity
 import com.voborodin.f2dice.databinding.FragmentAboutBinding
-import com.voborodin.f2dice.viewModel.FDiceViewModel
+import com.voborodin.f2dice.viewModel.F2DiceViewModel
 import kotlin.math.abs
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -39,7 +39,7 @@ interface OnSwipeListener {
 class AboutFragment : Fragment(), OnSwipeListener {
 
     private lateinit var binding: FragmentAboutBinding
-    private val viewModel: FDiceViewModel by activityViewModels()
+    private val viewModel: F2DiceViewModel by activityViewModels()
     private var onSwipeTouchListener: OnSwipeTouchListener? = null
 
     private val counters: MutableMap<String, Int> =
@@ -79,8 +79,8 @@ class AboutFragment : Fragment(), OnSwipeListener {
 
             if (md5(pin) == "b59c67bf196a4758191e42f76670ceba") {
                 clearCounters()
-                val intent = Intent(this.requireActivity(), SecretActivity::class.java)
-                startActivity(intent)
+
+                findNavController().navigate(R.id.action_aboutFragment_to_secretFragment)
             }
         }
     }

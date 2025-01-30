@@ -7,13 +7,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
-import com.voborodin.f2dice.viewModel.FDiceViewModel
+import com.voborodin.f2dice.viewModel.F2DiceViewModel
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private val viewModel: FDiceViewModel by activityViewModels()
+    private val viewModel: F2DiceViewModel by activityViewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)

@@ -8,7 +8,8 @@ import android.os.Vibrator
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.voborodin.f2dice.R
-import com.voborodin.f2dice.utils.DiceDataStore
+import com.voborodin.f2dice.types.Role
+import com.voborodin.f2dice.utils.F2DiceDataStore
 import com.voborodin.f2dice.utils.setImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,13 +17,14 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class FDiceViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+class F2DiceViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
 
     val developerURI: String = "https://github.com/vo-borodin"
     val appURI: String = "https://github.com/vo-borodin/f2dice"
     val issuesURI: String = "https://github.com/vo-borodin/f2dice/issues"
 
-    private val diceDataStore = DiceDataStore.getInstance(application)
+    private val diceDataStore = F2DiceDataStore.getInstance(application)
     var appTheme = diceDataStore.getAppTheme().asLiveData()
     var gameMode = diceDataStore.getGameMode().asLiveData()
 
@@ -38,9 +40,19 @@ class FDiceViewModel @Inject constructor(application: Application) : AndroidView
     val dice2: LiveData<Int>
         get() = _dice2
 
+    private val _role = MutableLiveData<Role?>()
+    var role: MutableLiveData<Role?>
+        get() = _role
+        set(r) {
+            _role.value = r.value
+        }
+
     private val _forgery = MutableLiveData<Int?>()
-    val forgery: LiveData<Int?>
+    var forgery: MutableLiveData<Int?>
         get() = _forgery
+        set(f) {
+            _forgery.value = f.value
+        }
 
     private val _result = MutableLiveData<String>()
     val result: LiveData<String>

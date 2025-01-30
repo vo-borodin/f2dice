@@ -40,4 +40,17 @@
     <string name="if_you_really_like_dice_consider_supporting_its_development">If you really like DICE, consider supporting its development</string>
     <string name="title_activity_secret">SecretActivity</string>
     <string name="bluetooth_switch">Bluetooth Switch</string>
+    <string name="change_pin_button_caption">Change PIN</string>
+    <string name="role_radio_buttons_caption">Set role:</string>
+    <string name="master_radio_button_caption">Master</string>
+    <string name="slave_radio_button_caption">Slave</string>
+    <string name="connected_device_hint">Connected device name</string>
+    <string name="check_connection_button_caption">Check connection</string>
+    <string name="launch_master_button_caption">To three buttons mode</string>
+    <string name="set_role_of_device">Set role</string>
+    <string name="turn_on_bluetooth" >Turn on Bluetooth</string>
+    <string name="turn_off_bluetooth" >Turn off Bluetooth</string>
+    <string name="launch_slave_button_caption">To game board</string>
+    <string name="start_server">Start sending and receiving messages</string>
+    <string name="stop_server">Stop sending and receiving messages</string>
 </resources>

@@ -9,7 +9,11 @@
         android:id="@+id/aboutFragment"
         android:name="com.voborodin.f2dice.ui.about.AboutFragment"
         android:label="@string/about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_secretFragment"
+            app:destination="@id/secretFragment" />
+    </fragment>
     <fragment
         android:id="@+id/prefsFragment"
         android:name="com.voborodin.f2dice.ui.prefs.PrefsFragment"
@@ -40,4 +44,11 @@
         android:id="@+id/settingsFragment"
         android:name="com.voborodin.f2dice.ui.settings.SettingsFragment"
         android:label="Settings" />
+    <fragment
+        android:id="@+id/secretFragment"
+        android:name="com.voborodin.f2dice.ui.secret.SecretFragment" >
+        <action
+            android:id="@+id/action_secretFragment_to_boardTwoFragment"
+            app:destination="@id/boardTwoFragment" />
+    </fragment>
 </navigation>

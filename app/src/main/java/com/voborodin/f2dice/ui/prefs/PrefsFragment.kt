@@ -13,21 +13,23 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentPrefsBinding
-import com.voborodin.f2dice.viewModel.FDiceViewModel
+import com.voborodin.f2dice.viewModel.F2DiceViewModel
 
 @AndroidEntryPoint
 class PrefsFragment : Fragment() {
 
     private lateinit var binding: FragmentPrefsBinding
-    private val viewModel : FDiceViewModel by activityViewModels()
-    private var dicePref : String = ""
+    private val viewModel: F2DiceViewModel by activityViewModels()
+    private var dicePref: String = ""
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_prefs, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prefs, container, false)
 
-        if(dicePref == ""){
+        if (dicePref == "") {
             binding.playButton.isEnabled = false
             binding.playButton.setBackgroundColor(Color.parseColor("#808080"))
         }
@@ -71,9 +73,9 @@ class PrefsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.eventGameStart.observe(viewLifecycleOwner, Observer { hasStarted ->
-            if(hasStarted){
+            if (hasStarted) {
                 viewModel.setGameMode(dicePref)
-                when(dicePref){
+                when (dicePref) {
                     else -> findNavController().navigate(R.id.action_prefsFragment_to_boardTwoFragment)
                 }
                 viewModel.onGameStartComplete()
@@ -83,7 +85,7 @@ class PrefsFragment : Fragment() {
         return binding.root
     }
 
-    private fun uncheckCards(){
+    private fun uncheckCards() {
         binding.cardOne.isChecked = false
         binding.cardTwo.isChecked = false
         binding.cardThree.isChecked = false

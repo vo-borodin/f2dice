@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.voborodin.f2dice.viewModel.FDiceViewModel" />
+            type="com.voborodin.f2dice.viewModel.F2DiceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="#d8d8d8"
         android:id="@+id/gameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#d8d8d8"
         tools:context=".ui.game.BoardTwoFragment">
 
         <ImageView
@@ -47,10 +48,10 @@
 
 
         <com.airbnb.lottie.LottieAnimationView
-            android:visibility="invisible"
             android:id="@+id/confetti"
             android:layout_width="300dp"
             android:layout_height="300dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/roll_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +69,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/confetti" />
-
 
 
         <com.google.android.material.button.MaterialButton
