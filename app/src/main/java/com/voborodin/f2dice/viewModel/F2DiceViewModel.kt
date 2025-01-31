@@ -8,17 +8,46 @@ import android.os.Vibrator
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.voborodin.f2dice.R
+import com.voborodin.f2dice.msg.BTController
+import com.voborodin.f2dice.types.BTDevice
+import com.voborodin.f2dice.types.BTUiState
+import com.voborodin.f2dice.types.ConnectionResult
 import com.voborodin.f2dice.types.Role
 import com.voborodin.f2dice.utils.F2DiceDataStore
 import com.voborodin.f2dice.utils.setImage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class F2DiceViewModel @Inject constructor(application: Application) :
-    AndroidViewModel(application) {
+class F2DiceViewModel @Inject constructor(
+    application: Application, private val btController: BTController
+) : AndroidViewModel(application) {
+    private val _state = MutableStateFlow(BTUiState())
+    val state = combine(
+        btController.scannedDevices, btController.pairedDevices, _state
+    ) { scannedDevices, pairedDevices, state ->
+        state.copy(
+            scannedDevices = scannedDevices,
+            pairedDevices = pairedDevices,
+            messages = if (state.isConnected) state.messages else emptyList()
+        )
+    }.stateIn(
+        viewModelScope, SharingStarted.WhileSubscribed(5_000), _state.value
+    )
+
+    private var deviceConnectionJob: Job? = null
 
     val developerURI: String = "https://github.com/vo-borodin"
     val appURI: String = "https://github.com/vo-borodin/f2dice"
@@ -64,6 +93,14 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         _dice2.value = R.drawable.empty_dice
         _forgery.value = null
         _result.value = ""
+
+        btController.isConnected.onEach { isConnected ->
+            _state.update { it.copy(isConnected = isConnected) }
+        }.launchIn(viewModelScope)
+
+        btController.errors.onEach { errMsg ->
+            _state.update { it.copy(errorMsg = errMsg) }
+        }.launchIn(viewModelScope)
     }
 
     fun setGameMode(mode: String) {
@@ -139,5 +176,86 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         _dice2.value = setImage(randomIntTwo)
         _forgery.value = null
         _result.value = (randomIntOne + randomIntTwo).toString()
+    }
+
+    fun startScan() {
+        btController.startDiscovery()
+    }
+
+    fun stopScan() {
+        btController.stopDiscovery()
+    }
+
+    fun connectToDevice(device: BTDevice) {
+        _state.update { it.copy(isConnecting = true) }
+        deviceConnectionJob = btController.connectToDevice(device).listen()
+    }
+
+    fun disconnectFromDevice() {
+        deviceConnectionJob?.cancel()
+        btController.closeConnection()
+        _state.update {
+            it.copy(
+                isConnecting = false, isConnected = false
+            )
+        }
+    }
+
+    fun waitForIncomingConnection() {
+        _state.update { it.copy(isConnecting = true) }
+        deviceConnectionJob = btController.startBTServer().listen()
+    }
+
+    fun sendMsg(msg: String) {
+        viewModelScope.launch {
+            val btMsg = btController.trySendMsg(msg)
+            if (btMsg != null) _state.update {
+                it.copy(
+                    messages = it.messages + btMsg
+                )
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        btController.release()
+    }
+
+    private fun Flow<ConnectionResult>.listen(): Job {
+        return onEach { result ->
+            when (result) {
+                ConnectionResult.ConnectionEstablished -> {
+                    _state.update {
+                        it.copy(
+                            isConnected = true, isConnecting = false, errorMsg = null
+                        )
+                    }
+                }
+
+                is ConnectionResult.ConnectionError -> {
+                    _state.update {
+                        it.copy(
+                            isConnected = false, isConnecting = false, errorMsg = result.msg
+                        )
+                    }
+                }
+
+                is ConnectionResult.TransferSucceeded -> {
+                    _state.update {
+                        it.copy(
+                            messages = it.messages + result.msg
+                        )
+                    }
+                }
+            }
+        }.catch {
+            _state.update {
+                it.copy(
+                    isConnected = false,
+                    isConnecting = false,
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 }
