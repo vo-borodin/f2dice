@@ -50,5 +50,13 @@
         <action
             android:id="@+id/action_secretFragment_to_boardTwoFragment"
             app:destination="@id/boardTwoFragment" />
+        <action
+            android:id="@+id/action_secretFragment_to_trinityFragment"
+            app:destination="@id/trinityFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/trinityFragment"
+        android:name="com.voborodin.f2dice.ui.trinity.TrinityFragment"
+        android:label="fragment_trinity"
+        tools:layout="@layout/fragment_trinity" />
 </navigation>

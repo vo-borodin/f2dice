@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.voborodin.f2dice.viewModel.F2DiceViewModel" />
+    </data>
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- The primary full-screen view. This can be replaced with whatever view
+             is needed to present your content, e.g. VideoView, SurfaceView,
+             TextureView, etc. -->
+
+        <!-- This FrameLayout insets its children based on system windows using
+             android:fitsSystemWindows. -->
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2196F3"
+            android:orientation="vertical"
+            android:scrollIndicators="top|left|bottom|start|end|right"
+            tools:ignore="UselessParent">
+
+            <Button
+                android:id="@+id/increment_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:hapticFeedbackEnabled="true"
+                android:text="@string/increment_button_caption"
+                android:textColor="@color/light_blue_600" />
+
+            <Button
+                android:id="@+id/commit_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:hapticFeedbackEnabled="true"
+                android:text="@string/commit_button_caption"
+                android:textColor="@color/light_blue_600" />
+
+            <Button
+                android:id="@+id/decrement_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:hapticFeedbackEnabled="true"
+                android:text="@string/decrement_button_caption"
+                android:textColor="@color/light_blue_600"
+                android:textIsSelectable="false" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

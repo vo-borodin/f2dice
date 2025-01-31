@@ -129,7 +129,7 @@ class F2DiceViewModel @Inject constructor(
         _eventGameStart.value = false
     }
 
-    private fun provideHapticFeedback() {
+    fun provideHapticFeedback() {
         val vibrator =
             getApplication<Application>().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (vibrator.hasVibrator()) {
@@ -176,6 +176,7 @@ class F2DiceViewModel @Inject constructor(
         _dice2.value = setImage(randomIntTwo)
         _forgery.value = null
         _result.value = (randomIntOne + randomIntTwo).toString()
+        sendReport()
     }
 
     fun startScan() {
@@ -206,7 +207,19 @@ class F2DiceViewModel @Inject constructor(
         deviceConnectionJob = btController.startBTServer().listen()
     }
 
-    fun sendMsg(msg: String) {
+    fun sendForgery() {
+        if (role.value == Role.Master && forgery.value != null) {
+            sendMsg(forgery.value.toString())
+        }
+    }
+
+    fun sendReport() {
+        if (role.value == Role.Slave) {
+            sendMsg("Done")
+        }
+    }
+
+    private fun sendMsg(msg: String) {
         viewModelScope.launch {
             val btMsg = btController.trySendMsg(msg)
             if (btMsg != null) _state.update {

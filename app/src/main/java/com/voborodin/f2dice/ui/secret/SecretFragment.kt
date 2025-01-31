@@ -12,12 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentSecretBinding
 import com.voborodin.f2dice.types.Role
@@ -74,11 +76,13 @@ class SecretFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        super.onCreate(savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_secret, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
         setHasOptionsMenu(false)
 
         if (viewModel.role.value != null) {
@@ -119,6 +123,8 @@ class SecretFragment : Fragment() {
             turnOnBt()
         }
 
+        binding.launchButton.setOnClickListener { onLaunch() }
+
         return binding.root
     }
 
@@ -154,5 +160,21 @@ class SecretFragment : Fragment() {
             }
         }
         return hasPermission
+    }
+
+    private fun onLaunch() {
+        when (viewModel.role.value) {
+            Role.Master -> Navigation.findNavController(
+                requireActivity(),
+                R.id.nav_host_fragment_container
+            ).navigate(R.id.action_secretFragment_to_trinityFragment)
+
+            Role.Slave -> Navigation.findNavController(
+                requireActivity(),
+                R.id.nav_host_fragment_container
+            ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
+
+            else -> {}
+        }
     }
 }

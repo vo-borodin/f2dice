@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val topLevelDestination = mutableSetOf<Int>()
         topLevelDestination.add(R.id.prefsFragment)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration : AppBarConfiguration = AppBarConfiguration.Builder(topLevelDestination).build()
 
         val navController = this.findNavController(R.id.nav_host_fragment_container)
-        NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {

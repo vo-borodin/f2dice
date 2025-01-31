@@ -36,4 +36,5 @@
     <string name="turn_off_bluetooth" >Включить Bluetooth</string>
     <string name="start_server">Включить прием и передачу сообщений</string>
     <string name="stop_server">Выключить прием и передачу сообщений</string>
+    <string name="commit_button_caption">Отправить</string>
 </resources>
