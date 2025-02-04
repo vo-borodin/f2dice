@@ -37,4 +37,7 @@
     <string name="start_server">Включить прием и передачу сообщений</string>
     <string name="stop_server">Выключить прием и передачу сообщений</string>
     <string name="commit_button_caption">Отправить</string>
+    <string name="paired_devices_list_caption">Paired devices</string>
+    <string name="connected_devices_list_caption">Connected devices</string>
+    <string name="cancel_button_caption">Cancel</string>
 </resources>

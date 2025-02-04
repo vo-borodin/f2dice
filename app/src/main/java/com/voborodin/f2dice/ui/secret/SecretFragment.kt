@@ -116,6 +116,7 @@ class SecretFragment : Fragment() {
             }
             viewModel.role.value = newRole
         }
+        binding.connectedDevice.setOnClickListener {}
         binding.layoutOnEnabledBt.setEnabled(isBTEnabled)
 
         turnOnBt()

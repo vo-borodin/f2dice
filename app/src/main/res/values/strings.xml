@@ -47,12 +47,15 @@
     <string name="check_connection_button_caption">Check connection</string>
     <string name="launch_master_button_caption">To three buttons mode</string>
     <string name="set_role_of_device">Set role</string>
-    <string name="turn_on_bluetooth" >Turn on Bluetooth</string>
-    <string name="turn_off_bluetooth" >Turn off Bluetooth</string>
+    <string name="turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="turn_off_bluetooth">Turn off Bluetooth</string>
     <string name="launch_slave_button_caption">To game board</string>
     <string name="increment_button_caption" translatable="false">+</string>
     <string name="commit_button_caption">Commit</string>
     <string name="decrement_button_caption" translatable="false">-</string>
     <string name="start_server">Start sending and receiving messages</string>
     <string name="stop_server">Stop sending and receiving messages</string>
+    <string name="paired_devices_list_caption">Paired devices</string>
+    <string name="connected_devices_list_caption">Connected devices</string>
+    <string name="cancel_button_caption">Cancel</string>
 </resources>
