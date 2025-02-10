@@ -121,7 +121,7 @@ class AboutFragment : Fragment(), OnSwipeListener {
         }
 
         onSwipeTouchListener =
-            OnSwipeTouchListener(this.requireActivity(), binding.aboutNestedScrollView, this)
+            OnSwipeTouchListener(this.requireActivity(), binding.logoContainer, this)
 
         return binding.root
     }

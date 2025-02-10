@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentSecretBinding
+import com.voborodin.f2dice.types.BTDevice
 import com.voborodin.f2dice.types.Role
 import com.voborodin.f2dice.viewModel.F2DiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,6 +100,10 @@ class SecretFragment : Fragment() {
         viewModel.role.observe(viewLifecycleOwner) { value: Role? ->
             applyRole(value)
         }
+        applyConnectedDevice(viewModel.connectedDevice.value)
+        viewModel.connectedDevice.observe(viewLifecycleOwner) { value: BTDevice? ->
+            applyConnectedDevice(value)
+        }
         binding.roleRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             val newRole: Role? = when (i) {
                 R.id.master_radio_button -> {
@@ -116,7 +120,16 @@ class SecretFragment : Fragment() {
             }
             viewModel.role.value = newRole
         }
-        binding.connectedDevice.setOnClickListener {}
+
+        binding.startStopServer.setOnClickListener {
+            viewModel.waitForIncomingConnection()
+        }
+
+        binding.selectDeviceButton.setOnClickListener {
+            Navigation.findNavController(
+                requireActivity(), R.id.nav_host_fragment_container
+            ).navigate(R.id.action_secretFragment_to_devicesFragment)
+        }
         binding.layoutOnEnabledBt.setEnabled(isBTEnabled)
 
         turnOnBt()
@@ -150,6 +163,15 @@ class SecretFragment : Fragment() {
         )
     }
 
+    private fun applyConnectedDevice(device: BTDevice?) {
+        if (device != null) {
+            binding.clearConnectedDeviceButton.setEnabled(device.address.isNotBlank())
+            if (!device.name.isNullOrBlank()) {
+                binding.connectedDevice.setText(device.name)
+            }
+        }
+    }
+
     private fun hasBTPermission(): Boolean {
         var hasPermission = true
         requiredPermissions.forEach {
@@ -166,13 +188,11 @@ class SecretFragment : Fragment() {
     private fun onLaunch() {
         when (viewModel.role.value) {
             Role.Master -> Navigation.findNavController(
-                requireActivity(),
-                R.id.nav_host_fragment_container
+                requireActivity(), R.id.nav_host_fragment_container
             ).navigate(R.id.action_secretFragment_to_trinityFragment)
 
             Role.Slave -> Navigation.findNavController(
-                requireActivity(),
-                R.id.nav_host_fragment_container
+                requireActivity(), R.id.nav_host_fragment_container
             ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
 
             else -> {}

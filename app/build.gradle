@@ -1,9 +1,10 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
-    id "org.jetbrains.kotlin.kapt"
-    id "kotlin-kapt"
     id "com.google.dagger.hilt.android"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "org.jetbrains.kotlin.kapt"
+    id "org.jetbrains.kotlin.plugin.compose"
 }
 
 android {
@@ -36,6 +37,10 @@ android {
     buildFeatures {
         dataBinding true
         viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.6'
     }
 }
 
@@ -75,6 +80,7 @@ dependencies {
     implementation libs.androidx.fragment.ktx
     implementation libs.androidx.recyclerview
     implementation libs.androidx.foundation.android
+    implementation libs.androidx.material3.android
     kapt libs.com.google.dagger.hilt.compiler7
 
     //timber

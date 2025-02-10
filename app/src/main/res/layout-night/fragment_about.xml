@@ -3,326 +3,347 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
-        android:background="@color/black"
-        tools:context=".ui.about.AboutFragment"
-        android:id="@+id/aboutNestedScrollView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logoContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="318dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/logoCV"
                 android:layout_width="@dimen/dimen_64"
                 android:layout_height="@dimen/dimen_64"
-                android:layout_marginStart="@dimen/dimen_16"
-                android:layout_marginTop="96dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="@dimen/dimen_0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <ImageView
+                    android:id="@+id/logoIV"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:contentDescription="logoIV"
+                    android:src="@drawable/ic_logo" />
 
-                    <ImageView
-                        android:id="@+id/logoIV"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:contentDescription="logoIV"
-                        android:src="@drawable/ic_logo"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/appNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/dice"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:fontFamily="@font/inter_semibold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logoCV" />
-
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/aboutDiv1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appNameTV" />
-
-            <TextView
-                android:id="@+id/appTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/app"
-                android:textColor="@color/white"
-                app:fontFamily="@font/inter_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/aboutDiv1" />
-
-
-            <com.google.android.material.card.MaterialCardView
-                app:cardBackgroundColor="@color/black"
-                android:id="@+id/bugCV"
-                android:layout_width="@dimen/dimen_0"
-                android:layout_height="64dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="@dimen/dimen_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appTV">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/bugConstraint"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/bugTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/report_bug"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        app:fontFamily="@font/inter_semibold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/bugDescTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="16dp"
-                        android:alpha="0.6"
-                        android:fontFamily="@font/inter"
-                        android:text="@string/report_bugs_or_request_few_features"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bugTV" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <com.google.android.material.card.MaterialCardView
-                app:cardBackgroundColor="@color/black"
-                android:id="@+id/rateAppCV"
-                android:layout_width="@dimen/dimen_0"
-                android:layout_height="64dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="@dimen/dimen_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bugCV">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/rateConstraint"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/rateTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="Star DICE"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/rateAppDescTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="16dp"
-                        android:alpha="0.6"
-                        android:fontFamily="@font/inter"
-                        android:text="If you like DICE, star it on its GitHub repository"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rateTV" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                app:cardBackgroundColor="@color/black"
-                android:id="@+id/supportAppCV"
-                android:layout_width="@dimen/dimen_0"
-                android:layout_height="64dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="@dimen/dimen_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rateAppCV">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/supportConstraint"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/supportTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="Support Development"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/supportDescTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="16dp"
-                        android:alpha="0.6"
-                        android:fontFamily="@font/inter"
-                        android:text="If you really like DICE, consider supporting its development"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/supportTV" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/aboutDiv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/supportAppCV" />
-
-            <TextView
-                android:id="@+id/devTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="@string/developer"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/aboutDiv2" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/devCV"
-                android:layout_width="@dimen/dimen_0"
-                android:layout_height="72dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="@dimen/dimen_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/devTV">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/devConstraint"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/devIV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
-                        android:contentDescription="devIV"
-                        android:src="@drawable/github"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/devConstraint" />
-
-
-                    <TextView
-                        android:id="@+id/githubTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_16"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="Github"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toEndOf="@+id/devIV"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/githubNameTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:alpha="0.6"
-                        android:fontFamily="@font/inter"
-                        android:text="\@binaryShrey"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/devIV"
-                        app:layout_constraintTop_toBottomOf="@+id/githubTV" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/aboutDiv3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/devCV" />
+                app:layout_constraintTop_toBottomOf="@+id/logoCV"
+                app:layout_constraintVertical_bias="0.069" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/aboutDiv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoContainer">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/aboutNestedScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".ui.about.AboutFragment">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/appTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/app"
+                        android:textColor="@color/white"
+                        app:fontFamily="@font/inter_semibold"
+                        app:layout_constraintBottom_toTopOf="@+id/bugCV"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/bugCV"
+                        android:layout_width="@dimen/dimen_0"
+                        android:layout_height="64dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/dimen_0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/appTV">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/bugConstraint"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:id="@+id/bugTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/report_bug"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:fontFamily="@font/inter_semibold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/bugDescTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="16dp"
+                                android:alpha="0.6"
+                                android:fontFamily="@font/inter"
+                                android:text="@string/report_bugs_or_request_few_features"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/bugTV" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/rateAppCV"
+                        android:layout_width="@dimen/dimen_0"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/dimen_0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bugCV">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/rateConstraint"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:id="@+id/rateTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_semibold"
+                                android:text="@string/star_dice"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/rateAppDescTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="16dp"
+                                android:alpha="0.6"
+                                android:fontFamily="@font/inter"
+                                android:text="@string/if_you_like_dice_star_it_on_its_github_repository"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/rateTV" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/supportAppCV"
+                        android:layout_width="@dimen/dimen_0"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/dimen_0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rateAppCV">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/supportConstraint"
+                            android:layout_width="match_parent"
+                            android:layout_height="58dp">
+
+
+                            <TextView
+                                android:id="@+id/supportTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_semibold"
+                                android:text="@string/support_development"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/supportDescTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="16dp"
+                                android:alpha="0.6"
+                                android:fontFamily="@font/inter"
+                                android:text="@string/if_you_really_like_dice_consider_supporting_its_development"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/supportTV" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/aboutDiv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/supportAppCV" />
+
+                    <TextView
+                        android:id="@+id/devTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="@string/developer"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/aboutDiv2" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/devCV"
+                        android:layout_width="@dimen/dimen_0"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/dimen_0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/devTV">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/devConstraint"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/devIV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="20dp"
+                                android:contentDescription="devIV"
+                                android:src="@drawable/github"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/devConstraint" />
+
+
+                            <TextView
+                                android:id="@+id/githubTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_16"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_semibold"
+                                android:text="Github"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toEndOf="@+id/devIV"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/githubNameTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:alpha="0.6"
+                                android:fontFamily="@font/inter"
+                                android:text="\@vo-borodin"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintStart_toEndOf="@+id/devIV"
+                                app:layout_constraintTop_toBottomOf="@+id/githubTV" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/aboutDiv3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/devCV" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

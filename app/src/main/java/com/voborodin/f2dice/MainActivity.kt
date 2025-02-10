@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val topLevelDestination = mutableSetOf<Int>()
-        topLevelDestination.add(R.id.prefsFragment)
         topLevelDestination.add(R.id.boardTwoFragment)
 
         val appBarConfiguration : AppBarConfiguration = AppBarConfiguration.Builder(topLevelDestination).build()

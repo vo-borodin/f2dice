@@ -13,54 +13,64 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
-        android:ems="10"
         android:enabled="false"
         android:inputType="text"
         android:text="@string/paired_devices_list_caption"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/pairedDevicesList"
+    <ScrollView
+        android:id="@+id/pairedDevicesScroll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
 
-        app:layout_constraintBottom_toTopOf="@id/connectedDevicesCaption"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pairedDevicesCaption"
-        tools:listitem="@layout/fragment_devices_item" />
+        app:layout_constraintBottom_toTopOf="@id/scannedDevicesCaption">
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/pairedDevicesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
 
     <EditText
-        android:id="@+id/connectedDevicesCaption"
+        android:id="@+id/scannedDevicesCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:ems="10"
         android:enabled="false"
         android:inputType="text"
-        android:text="@string/connected_devices_list_caption"
+        android:text="@string/scanned_devices_list_caption"
         android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/connectedDevicesList"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/scannedDevicesScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pairedDevicesList" />
+        app:layout_constraintTop_toBottomOf="@+id/pairedDevicesScroll" />
 
-    <ListView
-        android:id="@+id/connectedDevicesList"
+    <ScrollView
+        android:id="@+id/scannedDevicesScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cancel_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/connectedDevicesCaption"
-        tools:listitem="@layout/fragment_devices_item" />
+        app:layout_constraintTop_toBottomOf="@id/scannedDevicesCaption"
+        app:layout_constraintBottom_toTopOf="@id/cancel_button">
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/scannedDevicesList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ScrollView>
 
     <Button
         android:id="@+id/cancel_button"
@@ -68,7 +78,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cancel_button_caption"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/connectedDevicesList"
+        app:layout_constraintTop_toBottomOf="@+id/scannedDevicesScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

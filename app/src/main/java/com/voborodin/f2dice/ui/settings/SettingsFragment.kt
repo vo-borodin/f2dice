@@ -31,10 +31,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
                     "System Default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 }
             }
-
-            "GAME_MODE" -> {
-                viewModel.setGameMode(sharedPreferences?.getString("GAME_MODE_KEY", "one") ?: "one")
-            }
         }
     }
 

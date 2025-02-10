@@ -56,6 +56,8 @@
     <string name="start_server">Start sending and receiving messages</string>
     <string name="stop_server">Stop sending and receiving messages</string>
     <string name="paired_devices_list_caption">Paired devices</string>
-    <string name="connected_devices_list_caption">Connected devices</string>
+    <string name="scanned_devices_list_caption">Scanned devices</string>
     <string name="cancel_button_caption">Cancel</string>
+    <string name="select_device_btn_text" translatable="false">&lt;&lt;</string>
+    <string name="clear_device_button_caption">x</string>
 </resources>

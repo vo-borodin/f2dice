@@ -55,7 +55,7 @@ class F2DiceViewModel @Inject constructor(
 
     private val diceDataStore = F2DiceDataStore.getInstance(application)
     var appTheme = diceDataStore.getAppTheme().asLiveData()
-    var gameMode = diceDataStore.getGameMode().asLiveData()
+    var connectedDevice = diceDataStore.getConnectedDevice().asLiveData()
 
     private val _eventGameStart = MutableLiveData<Boolean>()
     val eventGameStart: LiveData<Boolean>
@@ -103,15 +103,15 @@ class F2DiceViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun setGameMode(mode: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            diceDataStore.setGameMode(mode)
-        }
-    }
-
     fun setAppTheme(theme: String) {
         viewModelScope.launch(Dispatchers.IO) {
             diceDataStore.setAppTheme(theme)
+        }
+    }
+
+    fun setConnectedDevice(device: BTDevice) {
+        viewModelScope.launch(Dispatchers.IO) {
+            diceDataStore.setConnectedDevice(device)
         }
     }
 

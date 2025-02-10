@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import com.voborodin.f2dice.types.BTDevice
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -11,7 +12,8 @@ import java.io.IOException
 
 object PREFS {
     val THEME_KEY = stringPreferencesKey("THEME_KEY")
-    val GAME_MODE = stringPreferencesKey("GAME_MODE")
+    val CONNECTED_DEVICE_NAME = stringPreferencesKey("CONNECTED_DEVICE_NAME")
+    val CONNECTED_DEVICE_ADDRESS = stringPreferencesKey("CONNECTED_DEVICE_ADDRESS")
 }
 
 class F2DiceDataStore private constructor(context: Context) {
@@ -57,14 +59,14 @@ class F2DiceDataStore private constructor(context: Context) {
             theme
         }
 
-    //game prefs
-    suspend fun setGameMode(mode: String) {
+    suspend fun setConnectedDevice(device: BTDevice) {
         dataStore.edit { pref ->
-            pref[PREFS.GAME_MODE] = mode
+            pref[PREFS.CONNECTED_DEVICE_NAME] = device.name ?: "UNKNOWN DEVICE"
+            pref[PREFS.CONNECTED_DEVICE_ADDRESS] = device.address
         }
     }
 
-    fun getGameMode(): Flow<String> = dataStore.data
+    fun getConnectedDevice(): Flow<BTDevice> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -72,8 +74,11 @@ class F2DiceDataStore private constructor(context: Context) {
                 throw exception
             }
         }
-        .map { pref ->
-            val mode = pref[PREFS.GAME_MODE] ?: "None"
-            mode
+        .map {pref ->
+            val name = pref[PREFS.CONNECTED_DEVICE_NAME]
+            val address = pref[PREFS.CONNECTED_DEVICE_ADDRESS] ?: ""
+
+            val device = BTDevice(name, address)
+            device
         }
 }
