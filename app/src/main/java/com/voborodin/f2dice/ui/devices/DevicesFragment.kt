@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,26 +54,27 @@ class DevicesFragment : Fragment() {
         devices: List<BTDevice>, modifier: Modifier, onDeviceClick: (BTDevice) -> Unit
     ) {
         Column(modifier = modifier) {
-            for(d in devices) {
+            devices.forEachIndexed { index: Int, btDevice: BTDevice ->
                 Column(modifier = Modifier.clickable {
-                    onDeviceClick(d)
+                    onDeviceClick(btDevice)
 
-                    viewModel.connectToDevice(d)
-
-                    Navigation.findNavController(
-                        requireActivity(),
-                        R.id.nav_host_fragment_container
-                    ).navigate(R.id.action_devicesFragment_to_secretFragment)
+                    viewModel.connectToDevice(btDevice)
                 }) {
+                    if (index != 0) {
+                        HorizontalDivider()
+                    }
+
                     Text(
-                        text = d.address, modifier = Modifier
+                        text = btDevice.address,
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp, 8.dp, 16.dp, 4.dp),
                         color = Color.Magenta,
                         fontSize = TextUnit(8.0F, TextUnitType.Sp)
                     )
                     Text(
-                        text = d.name ?: "(No name)", modifier = Modifier
+                        text = btDevice.name ?: "(No name)",
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp, 4.dp, 16.dp, 8.dp),
                         color = Color.Unspecified,
