@@ -66,7 +66,7 @@ class F2DiceDataStore private constructor(context: Context) {
         }
     }
 
-    fun getConnectedDevice(): Flow<BTDevice> = dataStore.data
+    fun getConnectedDevice(): Flow<BTDevice?> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -78,7 +78,11 @@ class F2DiceDataStore private constructor(context: Context) {
             val name = pref[PREFS.CONNECTED_DEVICE_NAME]
             val address = pref[PREFS.CONNECTED_DEVICE_ADDRESS] ?: ""
 
-            val device = BTDevice(name, address)
-            device
+            if (address.isEmpty()) {
+                null
+            } else {
+                val device = BTDevice(name, address)
+                device
+            }
         }
 }

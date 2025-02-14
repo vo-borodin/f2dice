@@ -1,6 +1,8 @@
 package com.voborodin.f2dice.utils
 
 import com.voborodin.f2dice.R
+import com.voborodin.f2dice.types.BTDevice
+import org.json.JSONObject
 
 fun setImage(rand : Int): Int {
     val res = when(rand){
@@ -12,4 +14,22 @@ fun setImage(rand : Int): Int {
         else -> R.drawable.dice_6
     }
     return res
+}
+
+fun parseBTDevice(json: String): BTDevice? {
+    if (json.isBlank()) {
+        return null
+    }
+    val jsonObj = JSONObject(json)
+    val address = jsonObj.getString("address")
+    val name = jsonObj.getString("name")
+
+    return BTDevice(name, address)
+}
+
+fun dumpBTDevice(device: BTDevice?): String {
+    if (device == null || device.address.isBlank()) {
+        return ""
+    }
+    return "{ name: \"${device.name}\", address: \"${device.address}\" }"
 }

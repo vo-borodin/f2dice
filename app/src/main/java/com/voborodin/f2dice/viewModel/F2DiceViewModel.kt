@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.lifecycle.*
+import com.voborodin.f2dice.F2DiceApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.msg.BTController
@@ -31,9 +32,9 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class F2DiceViewModel @Inject constructor(
-    application: Application, private val btController: BTController
-) : AndroidViewModel(application) {
+class F2DiceViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
+    private val btController: BTController = F2DiceApplication.btController
     private val _state = MutableStateFlow(BTUiState())
     val state = combine(
         btController.scannedDevices, btController.pairedDevices, _state

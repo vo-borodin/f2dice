@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -12,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,10 +21,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.voborodin.f2dice.DevicesActivity
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentSecretBinding
 import com.voborodin.f2dice.types.BTDevice
 import com.voborodin.f2dice.types.Role
+import com.voborodin.f2dice.utils.dumpBTDevice
+import com.voborodin.f2dice.utils.parseBTDevice
 import com.voborodin.f2dice.viewModel.F2DiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -125,10 +130,14 @@ class SecretFragment : Fragment() {
             viewModel.waitForIncomingConnection()
         }
 
+        val devicesActivityLauncher = registerForActivityResult(Contracts) { result ->
+            if (result != null) {
+                parseBTDevice(result)?.let { viewModel.setConnectedDevice(it) }
+            }
+        }
+
         binding.selectDeviceButton.setOnClickListener {
-            Navigation.findNavController(
-                requireActivity(), R.id.nav_host_fragment_container
-            ).navigate(R.id.action_secretFragment_to_devicesFragment)
+            devicesActivityLauncher.launch(dumpBTDevice(viewModel.connectedDevice.value))
         }
         binding.layoutOnEnabledBt.setEnabled(isBTEnabled)
 
@@ -164,8 +173,8 @@ class SecretFragment : Fragment() {
     }
 
     private fun applyConnectedDevice(device: BTDevice?) {
+        binding.clearConnectedDeviceButton.setEnabled(device != null && device.address.isNotBlank())
         if (device != null) {
-            binding.clearConnectedDeviceButton.setEnabled(device.address.isNotBlank())
             if (!device.name.isNullOrBlank()) {
                 binding.connectedDevice.setText(device.name)
             }
@@ -196,6 +205,21 @@ class SecretFragment : Fragment() {
             ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
 
             else -> {}
+        }
+    }
+
+    object Contracts : ActivityResultContract<String, String?>() {
+        override fun createIntent(context: Context, input: String): Intent {
+            val intent = Intent(context, DevicesActivity::class.java)
+            intent.putExtra("selected_device", input)
+            return intent
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): String? {
+            if (resultCode == RESULT_OK) {
+                return intent?.getStringExtra("selected_device")
+            }
+            return null
         }
     }
 }

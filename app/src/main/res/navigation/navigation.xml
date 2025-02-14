@@ -45,9 +45,6 @@
         <action
             android:id="@+id/action_secretFragment_to_onenessFragment"
             app:destination="@id/onenessFragment" />
-        <action
-            android:id="@+id/action_secretFragment_to_devicesFragment"
-            app:destination="@id/devicesFragment" />
     </fragment>
     <fragment
         android:id="@+id/trinityFragment"
@@ -59,12 +56,4 @@
         android:name="com.voborodin.f2dice.ui.oneness.OnenessFragment"
         android:label="fragment_oneness"
         tools:layout="@layout/fragment_oneness" />
-    <fragment
-        android:id="@+id/devicesFragment"
-        android:name="com.voborodin.f2dice.ui.devices.DevicesFragment"
-        android:label="DevicesFragment" >
-        <action
-            android:id="@+id/action_devicesFragment_to_secretFragment"
-            app:destination="@id/secretFragment" />
-    </fragment>
 </navigation>
