@@ -11,8 +11,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -49,7 +53,7 @@ class SecretFragment : Fragment() {
     private val enableBluetoothDevice = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        binding.layoutOnEnabledBt.setEnabled(it.resultCode == RESULT_OK)
+        //
     }
 
     private val permissionLauncher = registerForActivityResult(
@@ -126,7 +130,7 @@ class SecretFragment : Fragment() {
             viewModel.role.value = newRole
         }
 
-        binding.startStopServer.setOnClickListener {
+        binding.startReceivingButton.setOnClickListener {
             viewModel.waitForIncomingConnection()
         }
 
@@ -136,17 +140,32 @@ class SecretFragment : Fragment() {
             }
         }
 
+        binding.startSendingButton.setOnClickListener {
+            if (viewModel.role.value != null) {
+                if (viewModel.connectedDevice.value != null) {
+                    viewModel.connectToDevice(viewModel.connectedDevice.value!!)
+                } else {
+                    Toast.makeText(
+                        requireContext(), R.string.set_connected_device, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
         binding.selectDeviceButton.setOnClickListener {
             devicesActivityLauncher.launch(dumpBTDevice(viewModel.connectedDevice.value))
         }
-        binding.layoutOnEnabledBt.setEnabled(isBTEnabled)
+        binding.clearConnectedDeviceButton.setOnClickListener {
+            viewModel.setConnectedDevice(null)
+        }
 
         turnOnBt()
         binding.switchBtBtn.setOnClickListener {
             turnOnBt()
         }
 
-        binding.launchButton.setOnClickListener { onLaunch() }
+        binding.launchButtonMaster.setOnClickListener { onLaunchMaster() }
+        binding.launchButtonSlave.setOnClickListener { onLaunchSlave() }
 
         return binding.root
     }
@@ -162,23 +181,37 @@ class SecretFragment : Fragment() {
     }
 
     private fun applyRole(role: Role?) {
-        binding.launchButton.setEnabled(role != null)
-        binding.launchButton.setText(
-            when (role) {
-                Role.Master -> R.string.launch_master_button_caption
-                Role.Slave -> R.string.launch_slave_button_caption
-                else -> R.string.set_role_of_device
+        when (role) {
+            Role.Master -> {
+                binding.roleMasterLayout.visibility = VISIBLE
+                binding.roleSlaveLayout.visibility = GONE
             }
-        )
+
+            Role.Slave -> {
+                binding.roleMasterLayout.visibility = GONE
+                binding.roleSlaveLayout.visibility = VISIBLE
+            }
+
+            else -> {
+                binding.roleMasterLayout.visibility = GONE
+                binding.roleSlaveLayout.visibility = GONE
+            }
+        }
     }
 
     private fun applyConnectedDevice(device: BTDevice?) {
-        binding.clearConnectedDeviceButton.setEnabled(device != null && device.address.isNotBlank())
         if (device != null) {
-            if (!device.name.isNullOrBlank()) {
-                binding.connectedDevice.setText(device.name)
-            }
+            viewModel.connectToDevice(device)
+        } else {
+            viewModel.disconnectFromDevice()
         }
+        binding.clearConnectedDeviceButton.visibility =
+            if (device != null && device.address.isNotBlank()) VISIBLE
+            else INVISIBLE
+        binding.slaveDevice.setText(
+            if (device != null && !device.name.isNullOrBlank()) device.name
+            else null
+        )
     }
 
     private fun hasBTPermission(): Boolean {
@@ -194,18 +227,16 @@ class SecretFragment : Fragment() {
         return hasPermission
     }
 
-    private fun onLaunch() {
-        when (viewModel.role.value) {
-            Role.Master -> Navigation.findNavController(
-                requireActivity(), R.id.nav_host_fragment_container
-            ).navigate(R.id.action_secretFragment_to_trinityFragment)
+    private fun onLaunchMaster() {
+        Navigation.findNavController(
+            requireActivity(), R.id.nav_host_fragment_container
+        ).navigate(R.id.action_secretFragment_to_trinityFragment)
+    }
 
-            Role.Slave -> Navigation.findNavController(
-                requireActivity(), R.id.nav_host_fragment_container
-            ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
-
-            else -> {}
-        }
+    private fun onLaunchSlave() {
+        Navigation.findNavController(
+            requireActivity(), R.id.nav_host_fragment_container
+        ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
     }
 
     object Contracts : ActivityResultContract<String, String?>() {

@@ -59,10 +59,15 @@ class F2DiceDataStore private constructor(context: Context) {
             theme
         }
 
-    suspend fun setConnectedDevice(device: BTDevice) {
+    suspend fun setConnectedDevice(device: BTDevice?) {
         dataStore.edit { pref ->
-            pref[PREFS.CONNECTED_DEVICE_NAME] = device.name ?: "UNKNOWN DEVICE"
-            pref[PREFS.CONNECTED_DEVICE_ADDRESS] = device.address
+            if (device != null) {
+                pref[PREFS.CONNECTED_DEVICE_NAME] = device.name ?: "UNKNOWN DEVICE"
+                pref[PREFS.CONNECTED_DEVICE_ADDRESS] = device.address
+            } else {
+                pref.remove(PREFS.CONNECTED_DEVICE_NAME)
+                pref.remove(PREFS.CONNECTED_DEVICE_ADDRESS)
+            }
         }
     }
 

@@ -117,7 +117,7 @@ class BTController @Inject constructor(
         if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) throw SecurityException("NO BLUETOOTH CONNECT permission granted")
 
         currentServerSocket = btAdapter?.listenUsingRfcommWithServiceRecord(
-            "chat_service", UUID.fromString(SERVICE_UUID)
+            "f2dice", UUID.fromString(SERVICE_UUID)
         )
         var shouldLoop = true
         while (shouldLoop) {
@@ -210,7 +210,7 @@ class BTController @Inject constructor(
         else context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 
     companion object {
-        const val SERVICE_UUID = "835066b9-8d8f-4709-b336-ccce01116625"
+        const val SERVICE_UUID = "c400e413-eba8-43ed-a622-f08a41ba4e63"
     }
 
 }

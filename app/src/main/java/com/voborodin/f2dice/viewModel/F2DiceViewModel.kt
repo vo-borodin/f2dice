@@ -55,12 +55,7 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     val issuesURI: String = "https://github.com/vo-borodin/f2dice/issues"
 
     private val diceDataStore = F2DiceDataStore.getInstance(application)
-    var appTheme = diceDataStore.getAppTheme().asLiveData()
     var connectedDevice = diceDataStore.getConnectedDevice().asLiveData()
-
-    private val _eventGameStart = MutableLiveData<Boolean>()
-    val eventGameStart: LiveData<Boolean>
-        get() = _eventGameStart
 
     private val _dice1 = MutableLiveData<Int>()
     val dice1: LiveData<Int>
@@ -89,7 +84,6 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         get() = _result
 
     init {
-        _eventGameStart.value = false
         _dice1.value = R.drawable.empty_dice
         _dice2.value = R.drawable.empty_dice
         _forgery.value = null
@@ -110,7 +104,7 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         }
     }
 
-    fun setConnectedDevice(device: BTDevice) {
+    fun setConnectedDevice(device: BTDevice?) {
         viewModelScope.launch(Dispatchers.IO) {
             diceDataStore.setConnectedDevice(device)
         }
@@ -120,14 +114,6 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         _dice1.value = R.drawable.empty_dice
         _dice2.value = R.drawable.empty_dice
         _result.value = ""
-    }
-
-    fun onGameStart() {
-        _eventGameStart.value = true
-    }
-
-    fun onGameStartComplete() {
-        _eventGameStart.value = false
     }
 
     fun provideHapticFeedback() {
@@ -156,7 +142,7 @@ class F2DiceViewModel @Inject constructor(application: Application) :
                 null
             }
         }
-        return pairs[Random.nextInt(0, pairs.count() - 1)]
+        return pairs[Random.nextInt(0, pairs.count())]
     }
 
     fun rollBoard() {
@@ -177,7 +163,6 @@ class F2DiceViewModel @Inject constructor(application: Application) :
         _dice2.value = setImage(randomIntTwo)
         _forgery.value = null
         _result.value = (randomIntOne + randomIntTwo).toString()
-        sendReport()
     }
 
     fun startScan() {
@@ -211,12 +196,6 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     fun sendForgery() {
         if (role.value == Role.Master && forgery.value != null) {
             sendMsg(forgery.value.toString())
-        }
-    }
-
-    fun sendReport() {
-        if (role.value == Role.Slave) {
-            sendMsg("Done")
         }
     }
 
@@ -260,6 +239,9 @@ class F2DiceViewModel @Inject constructor(application: Application) :
                         it.copy(
                             messages = it.messages + result.msg
                         )
+                    }
+                    if (!result.msg.isFromLocalUser) {
+                        forgery.value = result.msg.msg.toInt()
                     }
                 }
             }

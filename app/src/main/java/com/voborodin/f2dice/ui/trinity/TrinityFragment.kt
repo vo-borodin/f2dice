@@ -1,5 +1,6 @@
 package com.voborodin.f2dice.ui.trinity
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +19,7 @@ class TrinityFragment : Fragment() {
     private lateinit var binding: FragmentTrinityBinding
     private val viewModel: F2DiceViewModel by activityViewModels()
 
-    private var counter: MutableLiveData<Int?> = MutableLiveData(null)
-        set(c) {
-            field = c
-            viewModel.forgery.value = c.value
-        }
+    private val waitForSending: MutableLiveData<Boolean> = MutableLiveData<Boolean>(true)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,6 +35,14 @@ class TrinityFragment : Fragment() {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
 
+        applyForgery(viewModel.forgery.value)
+        viewModel.forgery.observe(viewLifecycleOwner) { value: Int? ->
+            applyForgery(value)
+        }
+        waitForSending.observe(viewLifecycleOwner) {
+            applyForgery(viewModel.forgery.value)
+        }
+
         binding.incrementButton.setOnClickListener { onIncrement() }
         binding.commitButton.setOnClickListener { onCommit() }
         binding.decrementButton.setOnClickListener { onDecrement() }
@@ -45,30 +50,49 @@ class TrinityFragment : Fragment() {
         return binding.root
     }
 
+    private fun applyForgery(value: Int?) {
+        if (value == null) {
+            binding.commitButton.setText(R.string.commit_button_caption)
+        } else {
+            val res: Resources = resources
+            val path = if (waitForSending.value!!) R.string.commit_button_caption else R.string.commit_button_sent
+            binding.commitButton.text = "${res.getString(path)} $value"
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (counter.value == null) {
-            counter.value = 7
+        if (viewModel.forgery.value == null) {
+            viewModel.forgery.value = 7
         }
     }
 
     private fun onIncrement() {
         viewModel.provideHapticFeedback()
-        if (counter.value!! < 12) {
-            counter.value = counter.value!! + 1
+        if (!waitForSending.value!!) {
+            waitForSending.value = true
+        }
+        if (viewModel.forgery.value!! < 12) {
+            viewModel.forgery.value = viewModel.forgery.value!! + 1
         }
     }
 
     private fun onCommit() {
         viewModel.provideHapticFeedback()
+        if (waitForSending.value!!) {
+            waitForSending.value = false
+        }
         viewModel.sendForgery()
     }
 
     private fun onDecrement() {
         viewModel.provideHapticFeedback()
-        if (counter.value!! > 2) {
-            counter.value = counter.value!! - 1
+        if (!waitForSending.value!!) {
+            waitForSending.value = true
+        }
+        if (viewModel.forgery.value!! > 2) {
+            viewModel.forgery.value = viewModel.forgery.value!! - 1
         }
     }
 

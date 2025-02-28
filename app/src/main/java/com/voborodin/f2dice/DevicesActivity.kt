@@ -47,7 +47,6 @@ class DevicesActivity : ComponentActivity() {
         state: BTUiState,
         onStartScan: () -> Unit,
         onStopScan: () -> Unit,
-        onDeviceClick: (BTDevice) -> Unit,
         onStartServer: () -> Unit
     ) {
         Column(
@@ -58,8 +57,7 @@ class DevicesActivity : ComponentActivity() {
                 scannedDevices = state.scannedDevices,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f),
-                onDeviceClick = onDeviceClick
+                    .weight(1f)
             )
             Row(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround
@@ -79,11 +77,10 @@ class DevicesActivity : ComponentActivity() {
 
     @Composable
     private fun DeviceListItem(
-        index: Int, device: BTDevice, onDeviceClick: (BTDevice) -> Unit
+        index: Int, device: BTDevice
     ) {
 
         var columnModifier = Modifier.clickable {
-            onDeviceClick(device)
             intent.putExtra(
                 "selected_device", dumpBTDevice(device)
             )
@@ -121,8 +118,7 @@ class DevicesActivity : ComponentActivity() {
     private fun BTDeviceList(
         pairedDevices: List<BTDevice>,
         scannedDevices: List<BTDevice>,
-        modifier: Modifier,
-        onDeviceClick: (BTDevice) -> Unit
+        modifier: Modifier
     ) {
 
         LazyColumn(modifier = modifier) {
@@ -135,7 +131,7 @@ class DevicesActivity : ComponentActivity() {
             }
 
             itemsIndexed(pairedDevices) { index: Int, item: BTDevice ->
-                DeviceListItem(index, item, onDeviceClick)
+                DeviceListItem(index, item)
             }
 
             item {
@@ -147,7 +143,7 @@ class DevicesActivity : ComponentActivity() {
             }
 
             itemsIndexed(scannedDevices) { index: Int, item: BTDevice ->
-                DeviceListItem(index, item, onDeviceClick)
+                DeviceListItem(index, item)
             }
         }
     }
@@ -204,7 +200,6 @@ class DevicesActivity : ComponentActivity() {
                 state = state,
                 onStartScan = viewModel::startScan,
                 onStopScan = viewModel::stopScan,
-                onDeviceClick = viewModel::connectToDevice,
                 onStartServer = viewModel::waitForIncomingConnection
             )
                 //}

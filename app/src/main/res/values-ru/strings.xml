@@ -34,12 +34,16 @@
     <string name="set_role_of_device">Задайте роль</string>
     <string name="turn_on_bluetooth" >Выключить Bluetooth</string>
     <string name="turn_off_bluetooth" >Включить Bluetooth</string>
-    <string name="start_server">Включить прием и передачу сообщений</string>
-    <string name="stop_server">Выключить прием и передачу сообщений</string>
+    <string name="start_server_master">Включить передачу сообщений</string>
+    <string name="stop_server_master">Выключить передачу сообщений</string>
+    <string name="start_server_slave">Включить прием сообщений</string>
+    <string name="stop_server_slave">Выключить прием сообщений</string>
     <string name="commit_button_caption">Отправить</string>
     <string name="paired_devices_list_caption">Сопряженные устройства</string>
     <string name="scanned_devices_list_caption">Сканированные устройства</string>
     <string name="cancel_button_caption">Отменить</string>
     <string name="select_device_btn_text">Выбрать устройство</string>
     <string name="clear_device_button_caption">Стереть выбранное</string>
+    <string name="set_connected_device">Задайте соединенное устройство</string>
+    <string name="commit_button_sent">Отправлено</string>
 </resources>

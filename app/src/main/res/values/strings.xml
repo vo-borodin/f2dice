@@ -53,11 +53,15 @@
     <string name="increment_button_caption" translatable="false">+</string>
     <string name="commit_button_caption">Commit</string>
     <string name="decrement_button_caption" translatable="false">-</string>
-    <string name="start_server">Start sending and receiving messages</string>
-    <string name="stop_server">Stop sending and receiving messages</string>
+    <string name="start_server_master">Start sending messages</string>
+    <string name="stop_server_master">Stop sending messages</string>
+    <string name="start_server_slave">Start receiving messages</string>
+    <string name="stop_server_slave">Stop receiving messages</string>
     <string name="paired_devices_list_caption">Paired devices</string>
     <string name="scanned_devices_list_caption">Scanned devices</string>
     <string name="cancel_button_caption">Cancel</string>
     <string name="select_device_btn_text">Select device</string>
     <string name="clear_device_button_caption">Clear selected</string>
+    <string name="set_connected_device">Set connected device</string>
+    <string name="commit_button_sent">Sent</string>
 </resources>
