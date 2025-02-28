@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.voborodin.f2dice.types.BTDevice
+import com.voborodin.f2dice.types.Role
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -12,6 +13,7 @@ import java.io.IOException
 
 object PREFS {
     val THEME_KEY = stringPreferencesKey("THEME_KEY")
+    val ROLE = stringPreferencesKey("ROLE")
     val CONNECTED_DEVICE_NAME = stringPreferencesKey("CONNECTED_DEVICE_NAME")
     val CONNECTED_DEVICE_ADDRESS = stringPreferencesKey("CONNECTED_DEVICE_ADDRESS")
 }
@@ -88,6 +90,35 @@ class F2DiceDataStore private constructor(context: Context) {
             } else {
                 val device = BTDevice(name, address)
                 device
+            }
+        }
+
+    suspend fun setRole(role: Role?) {
+        dataStore.edit { pref ->
+            if (role != null) {
+                pref[PREFS.ROLE] = role.name
+            } else {
+                pref.remove(PREFS.ROLE)
+            }
+        }
+    }
+
+    fun getRole(): Flow<Role?> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map {pref ->
+            val name = pref[PREFS.ROLE]
+
+            if (name.isNullOrEmpty()) {
+                null
+            } else {
+                val role = enumValueOf<Role>(name)
+                role
             }
         }
 }

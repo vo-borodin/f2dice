@@ -127,7 +127,7 @@ class SecretFragment : Fragment() {
                     null
                 }
             }
-            viewModel.role.value = newRole
+            viewModel.setRole(newRole)
         }
 
         binding.startReceivingButton.setOnClickListener {

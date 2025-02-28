@@ -10,10 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentBoardTwoBinding
+import com.voborodin.f2dice.types.Role
 import com.voborodin.f2dice.viewModel.F2DiceViewModel
 
 @AndroidEntryPoint
@@ -22,10 +22,15 @@ class BoardTwoFragment : Fragment() {
     private lateinit var binding: FragmentBoardTwoBinding
     private val viewModel: F2DiceViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         (activity as AppCompatActivity).supportActionBar?.show()
-        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(),R.color.black)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.black)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_board_two, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -41,16 +46,18 @@ class BoardTwoFragment : Fragment() {
 
         binding.rollButton.setOnClickListener {
             binding.confetti.visibility = View.VISIBLE
-            binding.rollButton.isEnabled=false
-            binding.rollButton.isClickable=false
+            binding.rollButton.isEnabled = false
+            binding.rollButton.isClickable = false
+
             viewModel.rollBoard()
+
             binding.rollButton.postDelayed(Runnable {
-                binding.rollButton.isEnabled=true
-                binding.rollButton.isClickable=true
-            } , 2000)
+                binding.rollButton.isEnabled = true
+                binding.rollButton.isClickable = true
+            }, 2000)
             binding.rollButton.postDelayed(Runnable {
                 binding.confetti.visibility = View.INVISIBLE
-            } , 2000)
+            }, 2000)
         }
 
         return binding.root
@@ -58,12 +65,23 @@ class BoardTwoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        when(sp.getString("THEME_KEY","")){
-            "Light Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "Dark Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            "System Default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        viewModel.appTheme.observe(viewLifecycleOwner) { value: String ->
+            when (value) {
+                "Light Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                "Dark Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                "System Default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+        }
+
+        viewModel.role.observe(viewLifecycleOwner) { value: Role? ->
+            when (value) {
+                Role.Slave -> {
+                    viewModel.waitForIncomingConnection()
+                }
+
+                else -> {}
+            }
         }
     }
 

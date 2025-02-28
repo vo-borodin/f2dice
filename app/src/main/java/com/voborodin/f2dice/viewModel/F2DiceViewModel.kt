@@ -55,7 +55,9 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     val issuesURI: String = "https://github.com/vo-borodin/f2dice/issues"
 
     private val diceDataStore = F2DiceDataStore.getInstance(application)
+    var appTheme = diceDataStore.getAppTheme().asLiveData()
     var connectedDevice = diceDataStore.getConnectedDevice().asLiveData()
+    val role = diceDataStore.getRole().asLiveData()
 
     private val _dice1 = MutableLiveData<Int>()
     val dice1: LiveData<Int>
@@ -64,13 +66,6 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     private val _dice2 = MutableLiveData<Int>()
     val dice2: LiveData<Int>
         get() = _dice2
-
-    private val _role = MutableLiveData<Role?>()
-    var role: MutableLiveData<Role?>
-        get() = _role
-        set(r) {
-            _role.value = r.value
-        }
 
     private val _forgery = MutableLiveData<Int?>()
     var forgery: MutableLiveData<Int?>
@@ -107,6 +102,12 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     fun setConnectedDevice(device: BTDevice?) {
         viewModelScope.launch(Dispatchers.IO) {
             diceDataStore.setConnectedDevice(device)
+        }
+    }
+
+    fun setRole(role: Role?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            diceDataStore.setRole(role)
         }
     }
 
