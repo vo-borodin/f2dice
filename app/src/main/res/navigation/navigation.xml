@@ -38,7 +38,8 @@
         android:name="com.voborodin.f2dice.ui.secret.SecretFragment" >
         <action
             android:id="@+id/action_secretFragment_to_boardTwoFragment"
-            app:destination="@id/boardTwoFragment" />
+            app:destination="@id/boardTwoFragment"
+            app:popUpTo="@id/aboutFragment" />
         <action
             android:id="@+id/action_secretFragment_to_trinityFragment"
             app:destination="@id/trinityFragment" />
