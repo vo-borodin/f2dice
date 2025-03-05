@@ -3,6 +3,13 @@ package com.voborodin.f2dice.utils
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.types.BTDevice
 import org.json.JSONObject
+import java.math.BigInteger
+import java.security.MessageDigest
+
+fun md5(input: String): String {
+    val md = MessageDigest.getInstance("MD5")
+    return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+}
 
 fun setImage(rand : Int): Int {
     val res = when(rand){

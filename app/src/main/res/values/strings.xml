@@ -64,4 +64,15 @@
     <string name="clear_device_button_caption">Clear selected</string>
     <string name="set_connected_device">Set connected device</string>
     <string name="commit_button_sent">Sent</string>
+    <string name="current_pin_caption_text">Current PIN</string>
+    <string name="new_pin_caption_text">New PIN</string>
+    <string name="confirmation_caption_text" >Confirmation</string>
+    <string name="save_new_pin_button_caption">Save</string>
+    <string name="cancel_change_button_caption">Cancel</string>
+    <string name="confirmation_is_failed">Incorrect confirmation</string>
+    <string name="enter_confirmation">Enter confirmation of PIN</string>
+    <string name="pin_is_not_changed">New PIN must not be the same as current</string>
+    <string name="enter_new_pin">Enter new PIN</string>
+    <string name="incorrect_current_pin">Incorrect current PIN</string>
+    <string name="enter_current_pin">Enter current PIN</string>
 </resources>

@@ -25,6 +25,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.voborodin.f2dice.ChangePinActivity
 import com.voborodin.f2dice.DevicesActivity
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentSecretBinding
@@ -94,6 +95,16 @@ class SecretFragment : Fragment() {
 
         setHasOptionsMenu(false)
 
+        val changePinActivityLauncher = registerForActivityResult(ChangePinContracts) { result ->
+            if (result != null) {
+                Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.changePinButton.setOnClickListener {
+            changePinActivityLauncher.launch("b59c67bf196a4758191e42f76670ceba")
+        }
+
         if (viewModel.role.value != null) {
             binding.roleRadioGroup.check(
                 if (viewModel.role.value == Role.Master) {
@@ -134,7 +145,7 @@ class SecretFragment : Fragment() {
             viewModel.waitForIncomingConnection()
         }
 
-        val devicesActivityLauncher = registerForActivityResult(Contracts) { result ->
+        val devicesActivityLauncher = registerForActivityResult(DevicesContracts) { result ->
             if (result != null) {
                 parseBTDevice(result)?.let { viewModel.setConnectedDevice(it) }
             }
@@ -239,7 +250,7 @@ class SecretFragment : Fragment() {
         ).navigate(R.id.action_secretFragment_to_boardTwoFragment)
     }
 
-    object Contracts : ActivityResultContract<String, String?>() {
+    object DevicesContracts : ActivityResultContract<String, String?>() {
         override fun createIntent(context: Context, input: String): Intent {
             val intent = Intent(context, DevicesActivity::class.java)
             intent.putExtra("selected_device", input)
@@ -249,6 +260,21 @@ class SecretFragment : Fragment() {
         override fun parseResult(resultCode: Int, intent: Intent?): String? {
             if (resultCode == RESULT_OK) {
                 return intent?.getStringExtra("selected_device")
+            }
+            return null
+        }
+    }
+
+    object ChangePinContracts : ActivityResultContract<String, String?>() {
+        override fun createIntent(context: Context, input: String): Intent {
+            val intent = Intent(context, ChangePinActivity::class.java)
+            intent.putExtra("pin_hash", input)
+            return intent
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): String? {
+            if (resultCode == RESULT_OK) {
+                return intent?.getStringExtra("pin_hash")
             }
             return null
         }

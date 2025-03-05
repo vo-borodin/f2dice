@@ -18,15 +18,9 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import com.voborodin.f2dice.R
 import com.voborodin.f2dice.databinding.FragmentAboutBinding
+import com.voborodin.f2dice.utils.md5
 import com.voborodin.f2dice.viewModel.F2DiceViewModel
 import kotlin.math.abs
-import java.math.BigInteger
-import java.security.MessageDigest
-
-fun md5(input: String): String {
-    val md = MessageDigest.getInstance("MD5")
-    return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
-}
 
 interface OnSwipeListener {
     fun swipeRight()

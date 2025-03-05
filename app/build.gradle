@@ -81,6 +81,7 @@ dependencies {
     implementation libs.androidx.recyclerview
     implementation libs.androidx.foundation.android
     implementation libs.androidx.material3.android
+    implementation libs.androidx.activity
     kapt libs.com.google.dagger.hilt.compiler7
 
     //timber

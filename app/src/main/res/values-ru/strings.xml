@@ -46,4 +46,15 @@
     <string name="clear_device_button_caption">Стереть выбранное</string>
     <string name="set_connected_device">Задайте соединенное устройство</string>
     <string name="commit_button_sent">Отправлено</string>
+    <string name="current_pin_caption_text">Текущий ПИН-код</string>
+    <string name="new_pin_caption_text">Новый ПИН-код</string>
+    <string name="confirmation_caption_text" >Подтверждение</string>
+    <string name="save_new_pin_button_caption">Сохранить</string>
+    <string name="cancel_change_button_caption">Отменить</string>
+    <string name="confirmation_is_failed">Новый ПИН не совпадает с подтверждением</string>
+    <string name="enter_confirmation">Подтвердите ПИН</string>
+    <string name="pin_is_not_changed">Новый ПИН не должен совпадать со старым</string>
+    <string name="enter_new_pin">Введите новый ПИН</string>
+    <string name="incorrect_current_pin">Введен неправильный текущий ПИН</string>
+    <string name="enter_current_pin">Введите текущий ПИН</string>
 </resources>
