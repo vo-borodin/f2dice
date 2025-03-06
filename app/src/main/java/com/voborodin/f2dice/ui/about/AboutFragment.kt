@@ -71,7 +71,7 @@ class AboutFragment : Fragment(), OnSwipeListener {
 
             pin = buildPin()
 
-            if (md5(pin) == "b59c67bf196a4758191e42f76670ceba") {
+            if (md5(pin) == viewModel.pinHash.value) {
                 clearCounters()
 
                 findNavController().navigate(R.id.action_aboutFragment_to_secretFragment)
@@ -101,6 +101,9 @@ class AboutFragment : Fragment(), OnSwipeListener {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false)
+
+        viewModel.pinHash.observe(viewLifecycleOwner) {}
+
         binding.rateAppCV.setOnClickListener {
             openWebURI(viewModel.appURI)
         }

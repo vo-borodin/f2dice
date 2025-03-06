@@ -75,4 +75,6 @@
     <string name="enter_new_pin">Enter new PIN</string>
     <string name="incorrect_current_pin">Incorrect current PIN</string>
     <string name="enter_current_pin">Enter current PIN</string>
+    <string name="new_pin_is_set">New PIN is set</string>
+    <string name="pin_annotation">Four digits code, digits from 1 to 6</string>
 </resources>

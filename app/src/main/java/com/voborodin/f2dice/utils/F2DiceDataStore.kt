@@ -14,9 +14,12 @@ import java.io.IOException
 object PREFS {
     val THEME_KEY = stringPreferencesKey("THEME_KEY")
     val ROLE = stringPreferencesKey("ROLE")
+    val PIN_HASH = stringPreferencesKey("PIN_HASH")
     val CONNECTED_DEVICE_NAME = stringPreferencesKey("CONNECTED_DEVICE_NAME")
     val CONNECTED_DEVICE_ADDRESS = stringPreferencesKey("CONNECTED_DEVICE_ADDRESS")
 }
+
+const val DEFAULT_PIN_HASH = "b59c67bf196a4758191e42f76670ceba"
 
 class F2DiceDataStore private constructor(context: Context) {
 
@@ -120,5 +123,25 @@ class F2DiceDataStore private constructor(context: Context) {
                 val role = enumValueOf<Role>(name)
                 role
             }
+        }
+
+    suspend fun setPinHash(pinHash: String) {
+        dataStore.edit { pref ->
+            pref[PREFS.PIN_HASH] = pinHash
+        }
+    }
+
+    fun getPinHash(): Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { pref ->
+            val pinHash = pref[PREFS.PIN_HASH] ?: DEFAULT_PIN_HASH
+
+            pinHash
         }
 }

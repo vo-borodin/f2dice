@@ -57,7 +57,8 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     private val diceDataStore = F2DiceDataStore.getInstance(application)
     var appTheme = diceDataStore.getAppTheme().asLiveData()
     var connectedDevice = diceDataStore.getConnectedDevice().asLiveData()
-    val role = diceDataStore.getRole().asLiveData()
+    var role = diceDataStore.getRole().asLiveData()
+    var pinHash = diceDataStore.getPinHash().asLiveData()
 
     private val _dice1 = MutableLiveData<Int>()
     val dice1: LiveData<Int>
@@ -108,6 +109,12 @@ class F2DiceViewModel @Inject constructor(application: Application) :
     fun setRole(role: Role?) {
         viewModelScope.launch(Dispatchers.IO) {
             diceDataStore.setRole(role)
+        }
+    }
+
+    fun setPinHash(pinHash: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            diceDataStore.setPinHash(pinHash)
         }
     }
 

@@ -66,22 +66,29 @@ class BoardTwoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.appTheme.observe(viewLifecycleOwner) { value: String ->
-            when (value) {
-                "Light Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                "Dark Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                "System Default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
+        viewModel.appTheme.observe(viewLifecycleOwner) {}
+        viewModel.role.observe(viewLifecycleOwner) {}
+        viewModel.connectedDevice.observe(viewLifecycleOwner) {}
+
+        when (viewModel.appTheme.value) {
+            "Light Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "Dark Mode" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            "System Default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
 
-        viewModel.role.observe(viewLifecycleOwner) { value: Role? ->
-            when (value) {
-                Role.Slave -> {
-                    viewModel.waitForIncomingConnection()
+        when (viewModel.role.value) {
+            Role.Master -> {
+                val slave = viewModel.connectedDevice.value
+                if (slave != null) {
+                    viewModel.connectToDevice(slave)
                 }
-
-                else -> {}
             }
+
+            Role.Slave -> {
+                viewModel.waitForIncomingConnection()
+            }
+
+            else -> {}
         }
     }
 

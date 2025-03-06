@@ -124,7 +124,7 @@ class DevicesActivity : ComponentActivity() {
         LazyColumn(modifier = modifier) {
             item {
                 Text(
-                    text = "Paired Devices",
+                    text = resources.getString(R.string.paired_devices_list_caption),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp)
                 )
@@ -136,7 +136,7 @@ class DevicesActivity : ComponentActivity() {
 
             item {
                 Text(
-                    text = "Scanned Devices",
+                    text = resources.getString(R.string.scanned_devices_list_caption),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp)
                 )

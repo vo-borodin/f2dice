@@ -97,12 +97,13 @@ class SecretFragment : Fragment() {
 
         val changePinActivityLauncher = registerForActivityResult(ChangePinContracts) { result ->
             if (result != null) {
-                Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+                viewModel.setPinHash(result)
+                Toast.makeText(requireContext(), R.string.new_pin_is_set, Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.changePinButton.setOnClickListener {
-            changePinActivityLauncher.launch("b59c67bf196a4758191e42f76670ceba")
+            changePinActivityLauncher.launch(viewModel.pinHash.value)
         }
 
         if (viewModel.role.value != null) {
